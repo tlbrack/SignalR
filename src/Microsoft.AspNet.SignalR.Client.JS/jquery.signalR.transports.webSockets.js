@@ -44,6 +44,13 @@
 
                 connection.log("Connecting to websocket endpoint '" + url + "'");
                 connection.socket = new window.WebSocket(url);
+                // Issue #1653: Galaxy S3 Android Stock Browser fails silently to establish websocket connections. 
+                // Checking socket.url seems a safe way to detect the error.
+                if (connection.socket.url === undefined) {
+                    onFailed();
+                    return;
+                }
+
                 connection.socket.onopen = function () {
                     opened = true;
                     connection.log("Websocket opened");
