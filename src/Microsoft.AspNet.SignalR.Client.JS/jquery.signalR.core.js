@@ -285,7 +285,7 @@
             };
 
             var url = connection.url + "/negotiate";
-            url = signalR.transports._logic.addQs(url, connection);
+            url = signalR.transports._logic.addQs(url, connection).replace(/negotiate&/, "negotiate?");
 
             connection.log("Negotiating with '" + url + "'.");
             $.ajax({
